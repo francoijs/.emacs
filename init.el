@@ -10,6 +10,9 @@
 (setq-default indent-tabs-mode t)
 (setq-default c-basic-offset 4)
 
+;; make
+(global-set-key "\C-xc" 'compile)
+
 ;; show line numbers
 (require 'linum)
 (global-linum-mode 1)
@@ -133,3 +136,26 @@
 (global-highlight-parentheses-mode t)
 
 (put 'downcase-region 'disabled nil)
+
+
+;; tern parser for js
+(add-to-list 'load-path "~/.emacs.d/node_modules/tern/emacs/")
+(autoload 'tern-mode "tern.el" nil t)
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+
+;; ack-grep mode
+(add-to-list 'load-path "/path/to/full-ack")
+(autoload 'ack-same "full-ack" nil t)
+(autoload 'ack "full-ack" nil t)
+(autoload 'ack-find-same-file "full-ack" nil t)
+(autoload 'ack-find-file "full-ack" nil t)
+
+;; backup files location
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.saves"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
