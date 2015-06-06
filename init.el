@@ -142,6 +142,10 @@
 (add-to-list 'load-path "~/.emacs.d/node_modules/tern/emacs/")
 (autoload 'tern-mode "tern.el" nil t)
 (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+;; (eval-after-load 'tern
+;;    '(progn
+;;       (require 'tern-auto-complete)
+;;       (tern-ac-setup)))
 
 ;; ack-grep mode
 (add-to-list 'load-path "/path/to/full-ack")
