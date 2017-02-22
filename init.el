@@ -1,6 +1,28 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+;; MELPA packages
+(require 'package)
+(add-to-list 'package-archives
+			 '("melpa" . "http://melpa.org/packages/") t)
+
+(package-initialize)
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(defvar myPackages
+  '(elpy
+	flycheck
+	))
+	;; better-defaults
+    ;; material-theme))
+
+(mapc #'(lambda (package)
+    (unless (package-installed-p package)
+      (package-install package)))
+      myPackages)
+
+
 ;; tabs looks like 4 spaces & indentation is tabs
 ;; warning: next line must be first
 (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
@@ -163,3 +185,6 @@
    kept-new-versions 6
    kept-old-versions 2
    version-control t)       ; use versioned backups
+
+;; ELPY for python
+(elpy-enable)
