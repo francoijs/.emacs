@@ -11,7 +11,8 @@
   (package-refresh-contents))
 
 (defvar myPackages
-  '(elpy
+  '(pyvenv
+	elpy
 	flycheck
 	))
 	;; better-defaults
