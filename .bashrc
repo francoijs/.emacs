@@ -110,11 +110,15 @@ if ! shopt -oq posix; then
 fi
 
 export PATH=${PATH}:/sbin
-export http_proxy=http://192.168.18.1:3128/
-export ftp_proxy=http://192.168.18.1:3128/
-export https_proxy=http://192.168.18.1:3128/
-export JAVA_HOME=/opt/jre1.7.0_67/
+# export http_proxy=http://192.168.18.1:3128/
+# export ftp_proxy=http://192.168.18.1:3128/
+# export https_proxy=http://192.168.18.1:3128/
+# export JAVA_HOME=/opt/jre1.7.0_67/
 
+# curl -L https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > ~/.bash_git
+if [ -f ~/.bash_git ]; then
+	. ~/.bash_git
+fi
 export PS1="\n\[\033[1;30m\][$$:$PPID - \j:\!\[\033[1;30m\]]\[\033[0;36m\] \T \
 \[\033[1;30m\][\[\033[1;34m\]\u@\H\[\033[1;30m\]:\[\033[0;37m\]${SSH_TTY:-o} \
 \[\033[0;32m\]+${SHLVL}\[\033[1;30m\]] \[\033[1;37m\]\w\[\033[0;37m\]\[\033[1;34m\]\$(__git_ps1 \" (%s)\") \[\033[0;37m\] \n\$ "
