@@ -17,10 +17,13 @@ shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=100000
-HISTFILESIZE=10000000
+HISTFILESIZE=20000000
 
 # save each command right after it has been executed
 PROMPT_COMMAND='history -a'
+
+# deactivate 'suspend & resume' so that CTRL-S may be used to search forward in history
+stty -ixon
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -112,11 +115,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=${PATH}:/sbin
-# export http_proxy=http://192.168.18.1:3128/
-# export ftp_proxy=http://192.168.18.1:3128/
-# export https_proxy=http://192.168.18.1:3128/
-# export JAVA_HOME=/opt/jre1.7.0_67/
+export PATH=${PATH}:/sbin:~/.local/bin
 
 # curl -L https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > ~/.bash_git
 if [ -f ~/.bash_git ]; then
@@ -125,3 +124,24 @@ fi
 export PS1="\n\[\033[1;30m\][$$:$PPID - \j:\!\[\033[1;30m\]]\[\033[0;36m\] \T \
 \[\033[1;30m\][\[\033[1;34m\]\u@\H\[\033[1;30m\]:\[\033[0;37m\]${SSH_TTY:-o} \
 \[\033[0;32m\]+${SHLVL}\[\033[1;30m\]] \[\033[1;37m\]\w\[\033[0;37m\]\[\033[1;34m\]\$(__git_ps1 \" (%s)\") \[\033[0;37m\] \n\$ "
+
+JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+#JAVA_HOME="$(dirname $(dirname -- `which conda`))"
+PATH=$PATH:/opt/anaconda2/bin/:/usr/local/spark/bin
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/opt/anaconda2/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/opt/anaconda2/etc/profile.d/conda.sh" ]; then
+#         . "/opt/anaconda2/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/opt/anaconda2/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
+
+alias vuze='biglybt'

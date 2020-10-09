@@ -12,11 +12,11 @@
 
 (defvar myPackages
   '(pyvenv
-	elpy
-	flycheck
-	))
-	;; better-defaults
-    ;; material-theme))
+    elpy
+    flycheck
+    ))
+;; better-defaults
+;; material-theme))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -170,6 +170,24 @@
 ;;       (require 'tern-auto-complete)
 ;;       (tern-ac-setup)))
 
+;; 2-spaces indent for web and js
+(defun my-setup-indent (n)
+  ;; web development
+  (setq-local coffee-tab-width n) ; coffeescript
+  (setq-local javascript-indent-level n) ; javascript-mode
+  (setq-local js-indent-level n) ; js-mode
+  (setq-local js2-basic-offset n) ; js2-mode, in latest js2-mode, it's alias of js-indent-level
+  (setq-local web-mode-markup-indent-offset n) ; web-mode, html tag in html file
+  (setq-local web-mode-css-indent-offset n) ; web-mode, css in html file
+  (setq-local web-mode-code-indent-offset n) ; web-mode, js code in html file
+  (setq-local css-indent-offset n) ; css-mode
+  )
+;; use space instead of tab
+(setq indent-tabs-mode nil)
+;; indent 2 spaces width
+(my-setup-indent 2)
+
+
 ;; ack-grep mode
 (add-to-list 'load-path "/path/to/full-ack")
 (autoload 'ack-same "full-ack" nil t)
@@ -189,3 +207,37 @@
 
 ;; ELPY for python
 (elpy-enable)
+(setq elpy-rpc-python-command "python3")
+(elpy-use-ipython "python3")(setenv "IPY_TEST_SIMPLE_PROMPT" "1")
+(setq python-shell-interpreter "ipython3"
+      python-shell-interpreter-args "-i")
+
+;; enable flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; markdown mode
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(elpy-test-discover-runner-command (quote ("python3" "-m" "unittest")))
+ '(python-shell-interpreter "python3")
+ '(safe-local-variable-values (quote ((nxml-child-indent . 4)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; lua
+(add-to-list 'load-path "~/.emacs.d/lua/")
+(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
+;; yaml
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
