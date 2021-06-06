@@ -63,6 +63,9 @@
 		 (background-color . "LightYellow"))
 ))
 
+;; replace audio bell
+(setq visible-bell 1)
+
 ;; cscope
 ;;(load-file "xcscope.el")
 ;;(require 'xcscope)
@@ -205,13 +208,6 @@
    kept-old-versions 2
    version-control t)       ; use versioned backups
 
-;; ELPY for python
-(elpy-enable)
-(setq elpy-rpc-python-command "python3")
-(elpy-use-ipython "python3")(setenv "IPY_TEST_SIMPLE_PROMPT" "1")
-(setq python-shell-interpreter "ipython3"
-      python-shell-interpreter-args "-i")
-
 ;; enable flycheck
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -224,6 +220,9 @@
  ;; If there is more than one, they won't work right.
  '(elpy-test-discover-runner-command (quote ("python3" "-m" "unittest")))
  '(python-shell-interpreter "python3")
+ '(quack-programs
+   (quote
+	("chibi-scheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "mzscheme" "quack" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scm" "scsh" "sisc" "stklos" "sxi" "test")))
  '(safe-local-variable-values (quote ((nxml-child-indent . 4)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -241,3 +240,19 @@
 ;; yaml
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
+;; antlr
+(require 'antlr-mode)
+(add-to-list 'auto-mode-alist '("\\.g4\\'" . antlr-mode))
+
+;; ELPY for python
+(elpy-enable)
+(setq elpy-rpc-python-command "python3")
+(elpy-use-ipython "python3")(setenv "IPY_TEST_SIMPLE_PROMPT" "1")
+(setq python-shell-interpreter "ipython3"
+      python-shell-interpreter-args "-i")
+
+;; Quack for Scheme
+(require 'quack)
+
+;; Emacs' Python mode will try to auto-detect the indent size a Python file uses. Sometimes, it can get it wrong. M-x set-variable RET python-indent-offset RET should let you re-set it to whatever value you like - alternatively, just edit the file so it uses your preferred indentation in the first lines and re-open it.
